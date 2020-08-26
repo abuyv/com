@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1">
+        <title>abu@abuyv.com</title>
+        <link rel="stylesheet" href="../css/semantic.css">
+        <link rel="stylesheet" href="../css/style.css">
+    </head>
+
+    <body>
+        <div id="particles-js"></div>
+        <div align="center" style="color:white" class="" id="nav">
+            <a class="ui secondary button" href="index.html">pgp</a>
+            <a class="ui secondary button" href="index.html">twitter</a>
+            <a class="ui secondary button" href="index.html">github</a>
+            <a class="ui secondary button" href="index.html">talks</a>
+            <a class="ui secondary button" href="index.html">cve</a>
+            <a class="ui secondary button" href="index.html">ctf</a>
+            <!--[ <a style="color:white" href="http://abuyv.com">pgp</a> ] -->	
+            <pre align="center" style="color:green;font-size:x-small;text-align: center">
+
+            </pre>
+
+            <div class="div-1">
+                <p style="text-align: left">
+                Any name typed on Custom Groups function in the Inventory section of Setting part was vulnerable to stored XSS. So, XSS triggered on the http://ip/inventory/groups/ and http://ip/dashboard/home .
+                </p>
+
+                <figure>
+                    <iframe src="https://www.youtube.com/embed/1vs7itqmAWM" width="500" height="281" frameborder="0" allow="autoplay; fullscreen" allowfullscreen title="Spiceworks stored XSS PoC"></iframe>
+                </figure>
+                
+                Step 1: visit to inventory section
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/spiceworks/01-settings.png" alt="" class="center"/></figure>
+
+                Step 2: visit custom Groups
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/spiceworks/02-custom-groups.png" alt="" class="center"/></figure>
+
+                Step 3: create a New Group 
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/spiceworks/03-new-group.png" alt="" class="center"/></figure>
+
+                Step 4: Group Name is vulnerable to stored Xss
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/spiceworks/04-group-name.png" alt="" class="center"/></figure>
+     
+                 <p style="background-color: red; border: 2px solid black; padding: 10px; background-repeat: no-repeat; background-size: 10px 10px">Payload: Abuyv">" &lt;input type="image" src="a" onerror=alert(399)></p>
+
+                Step 5: Visit to dashboard  and inventory to trigger XSS
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/spiceworks/05-dashboard.png" alt="" class="center"/></figure>
+
+                Step 6: Visit Devices under my network to trigger XSS
+
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/spiceworks/06-devices.png" alt="" class="center"/></figure>
+
+                Note: In order to achieve XSS you have to choose browse View option in settings 
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/spiceworks/07-browse-view.png" alt="" class="center"/></figure>
+
+                Step 7: Click to All Devices and it will trigger XSS 
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/spiceworks/08-inventory.png" alt="" class="center"/></figure>
+
+
+            </div>
+        </div>
+
+
+        <script src="../js/particles.js"></script>
+        <script src="../js/config.js"></script>
+    </body>
+</html>
